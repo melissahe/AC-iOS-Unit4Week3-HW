@@ -19,7 +19,7 @@ class ZipCodeHelper {
                     if let placemark = placemarks?.first, let name = placemark.locality {
                         completionHandler(name)
                     } else {
-                        errorHandler(AppError.zipCodeError)
+                        errorHandler(error)
                     }
                 }
             }
