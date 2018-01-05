@@ -83,5 +83,6 @@ Favorite images view controller loads all favorited images | 4 Points
 Most recent zip code is persisted with user defaults | 4 Points
 Extra Credit: Allow the user to search by the cityname or zipcode | 1 Point
 Extra Credit: Allow the user to toggle whether the displays should be US or Metric.  Persist this to User Defaults | 1 Point
+Extra Credit: Add animations that we think look good | 2 Point
 
-A total of 40 points, with 2 points extra credit.
+A total of 40 points, with 4 points extra credit.
