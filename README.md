@@ -6,6 +6,7 @@ Create a weather app using programmatic Autolayout.  Your app should let the use
 
 # Gif
 
+![gif](https://github.com/C4Q/AC-iOS-Unit4Week3-HW/blob/master/unit4week3hwV2.gif)
 
 
 # Detailed Overview
