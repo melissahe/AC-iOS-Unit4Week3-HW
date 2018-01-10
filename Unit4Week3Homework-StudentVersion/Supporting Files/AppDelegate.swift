@@ -15,14 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        //Main Weather View Controller
         let mainVC = MainWeatherViewController()
-        let navigationVC = UINavigationController(rootViewController: mainVC)
+        let mainNavigationVC = UINavigationController(rootViewController: mainVC)
+        let mainTabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
+        mainNavigationVC.tabBarItem = mainTabBarItem
+        
+        //Favorite Images View Controller
+        let favoriteImagesVC = FavoriteImagesViewController()
+        let favoriteImagesNavigationVC = UINavigationController(rootViewController: favoriteImagesVC)
+        let favoriteImageTabBarItem = UITabBarItem(title: "Favorite Images", image: nil, selectedImage: nil)
+        favoriteImagesVC.tabBarItem = favoriteImageTabBarItem
         
         let tabBarVC = UITabBarController()
-        tabBarVC.setViewControllers([navigationVC], animated: true)
-        
-        let mainTabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
-        navigationVC.tabBarItem = mainTabBarItem
+        tabBarVC.setViewControllers([mainNavigationVC, favoriteImagesNavigationVC], animated: true)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
