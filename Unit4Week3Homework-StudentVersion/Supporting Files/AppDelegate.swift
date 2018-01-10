@@ -13,9 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let mainVC = MainWeatherViewController()
+        let navigationVC = UINavigationController(rootViewController: mainVC)
+        
+        let tabBarVC = UITabBarController()
+        tabBarVC.setViewControllers([navigationVC], animated: true)
+        
+        let mainTabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
+        navigationVC.tabBarItem = mainTabBarItem
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        window?.rootViewController = tabBarVC
+        
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
