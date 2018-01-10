@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let favoriteImagesVC = FavoriteImagesViewController()
         let favoriteImagesNavigationVC = UINavigationController(rootViewController: favoriteImagesVC)
         let favoriteImageTabBarItem = UITabBarItem(title: "Favorite Images", image: nil, selectedImage: nil)
-        favoriteImagesVC.tabBarItem = favoriteImageTabBarItem
+        favoriteImagesNavigationVC.tabBarItem = favoriteImageTabBarItem
         
         let tabBarVC = UITabBarController()
         tabBarVC.setViewControllers([mainNavigationVC, favoriteImagesNavigationVC], animated: true)
