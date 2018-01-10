@@ -32,7 +32,7 @@ class MainWeatherView: UIView {
         collectionView.backgroundColor = UIColor(red: 0.651, green: 0.855, blue: 0.859, alpha: 1)
         
         collectionView.setCollectionViewLayout(layout, animated: true)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "weatherCell")
+        collectionView.register(MainWeatherCollectionViewCell.self, forCellWithReuseIdentifier: "weatherCell")
         
         return collectionView
     }()

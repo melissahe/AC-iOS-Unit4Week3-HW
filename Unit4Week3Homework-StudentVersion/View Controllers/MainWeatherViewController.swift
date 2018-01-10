@@ -94,9 +94,10 @@ extension MainWeatherViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! MainWeatherCollectionViewCell
         
-        //to do make custom table view cell
+        //to do - make custom table view cell
+        cell.configureCell()
         
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 15
