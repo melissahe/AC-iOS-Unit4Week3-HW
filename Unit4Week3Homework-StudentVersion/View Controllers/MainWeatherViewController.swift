@@ -103,7 +103,9 @@ extension MainWeatherViewController: UICollectionViewDelegate {
         }
         
         let detailedVC = DetailedWeatherViewController()
-       
+        
+        detailedVC.modalPresentationStyle = .overCurrentContext
+        detailedVC.modalTransitionStyle = .coverVertical
         
         //Extra Credit
         

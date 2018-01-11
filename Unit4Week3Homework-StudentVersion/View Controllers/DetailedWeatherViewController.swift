@@ -15,8 +15,7 @@ class DetailedWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //change navigation title
-        self.view.backgroundColor = .white
+        
         setUpDetailedView()
     }
     
@@ -27,6 +26,8 @@ class DetailedWeatherViewController: UIViewController {
         detailedView = DetailedWeatherView(frame: safeAreaLayoutGuide.layoutFrame)
         //to do other stuff!!!
         
+        self.view.backgroundColor = .clear
+        
         self.view.addSubview(detailedView)
         detailedView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -34,6 +35,14 @@ class DetailedWeatherViewController: UIViewController {
         detailedView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         detailedView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         detailedView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        detailedView.layoutIfNeeded()
+        
+        detailedView.dismissView.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
-
+    
+    @objc func dismissView() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

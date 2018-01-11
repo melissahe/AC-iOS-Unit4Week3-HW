@@ -43,7 +43,6 @@ class MainWeatherView: UIView {
         let label = UILabel()
         
         label.textAlignment = .center
-//        label.text = "No Results Available"
         
         return label
     }()
@@ -72,10 +71,10 @@ class MainWeatherView: UIView {
     }
     
     private func commonInit() {
-        setUpViews()
+        setUpViewConstraints()
     }
     
-    private func setUpViews() {
+    private func setUpViewConstraints() {
         //to do
         setUpCityNameLabel()
         setUpCollectionView()
