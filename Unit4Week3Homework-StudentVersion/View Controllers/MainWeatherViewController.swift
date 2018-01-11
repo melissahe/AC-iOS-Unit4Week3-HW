@@ -97,6 +97,44 @@ extension MainWeatherViewController: UICollectionViewDelegateFlowLayout {
 extension MainWeatherViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) else {
+            return
+        }
+        
+        let detailedVC = DetailedWeatherViewController()
+       
+        
+        //Extra Credit
+        
+        //got the idea for this animation code here: https://codepad.co/snippet/vE7tduOt
+        
+        UIView.animate(withDuration: 0.20, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: [], animations: {
+            
+            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            
+            
+        }, completion: { (_) in
+
+            UIView.animateKeyframes(withDuration: 0.20, delay: 0, options: [.calculationModeCubicPaced], animations: {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.10, animations: {
+                    
+                    cell.transform = CGAffineTransform(scaleX: 1, y: 1.0)
+                
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.10, relativeDuration: 0.90, animations: {
+                    
+                    self.present(detailedVC, animated: true, completion: nil)
+                    
+                })
+                
+                
+            }, completion: nil)
+            
+        })
+        
         //to do, should trigger programmatic segue to detailed view
         //pass in info
     }
@@ -138,9 +176,13 @@ extension MainWeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let zipcode = textField.text {
             self.zipcode = zipcode
-            mainWeatherView.animateRemoveNoResultsLabel()
         }
         
+        if zipcode == "10002" {
+            mainWeatherView.animateRemoveNoResultsLabel()
+        } else {
+            mainWeatherView.animateAddNoResultsLabel()
+        }
         return true
     }
     

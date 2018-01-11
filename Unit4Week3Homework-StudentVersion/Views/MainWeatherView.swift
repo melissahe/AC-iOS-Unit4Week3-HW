@@ -10,6 +10,8 @@ import UIKit
 
 class MainWeatherView: UIView {
     
+    var topAnchorConstraint = NSLayoutConstraint()
+    
     //set up objects
     lazy var cityNameLabel: UILabel = {
         let label = UILabel()
@@ -41,6 +43,7 @@ class MainWeatherView: UIView {
         let label = UILabel()
         
         label.textAlignment = .center
+//        label.text = "No Results Available"
         
         return label
     }()
@@ -51,6 +54,7 @@ class MainWeatherView: UIView {
         textField.textAlignment = .center
         //assign UserDefaults saved zip code to text here? maybe do it in the view controller
         textField.placeholder = "Enter Zipcode Here..."
+        textField.keyboardType = .numbersAndPunctuation
         
         return textField
     }()
@@ -101,7 +105,6 @@ class MainWeatherView: UIView {
         
         collectionView.layer.masksToBounds = true
         collectionView.layer.cornerRadius = 20
-        
     }
     
     private func setUpNoResultsLabel() {
@@ -119,7 +122,11 @@ class MainWeatherView: UIView {
         addSubview(zipcodeTextField)
         
         zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        zipcodeTextField.topAnchor.constraint(equalTo: noResultsLabel.bottomAnchor, constant: 16).isActive = true
+        
+        topAnchorConstraint = zipcodeTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16)
+        
+        topAnchorConstraint.isActive = true
+        
         zipcodeTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         zipcodeTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
         zipcodeTextField.heightAnchor.constraint(equalTo: cityNameLabel.heightAnchor).isActive = true
@@ -133,9 +140,17 @@ class MainWeatherView: UIView {
 }
 
 //MARK: - Animation Functions
+
+//Extra Credit
+
 extension MainWeatherView {
     func animateAddNoResultsLabel() {
         noResultsLabel.text = "No Results Available"
+        topAnchorConstraint.isActive = false
+        
+        topAnchorConstraint = zipcodeTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 48)
+        
+        topAnchorConstraint.isActive = true
         
         UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: UIViewKeyframeAnimationOptions.calculationModeCubic, animations: {
             
@@ -147,6 +162,13 @@ extension MainWeatherView {
     }
     
     func animateRemoveNoResultsLabel() {
+        
+        topAnchorConstraint.isActive = false
+        
+        topAnchorConstraint = zipcodeTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16)
+        
+        topAnchorConstraint.isActive = true
+        
         UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: UIViewKeyframeAnimationOptions.calculationModeCubic, animations: {
 
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: {
