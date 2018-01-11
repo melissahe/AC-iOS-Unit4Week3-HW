@@ -37,6 +37,14 @@ class MainWeatherView: UIView {
         return collectionView
     }()
     
+    lazy var noResultsLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
     lazy var zipcodeTextField: UITextField = {
         let textField = UITextField()
         
@@ -67,6 +75,7 @@ class MainWeatherView: UIView {
         //to do
         setUpCityNameLabel()
         setUpCollectionView()
+        setUpNoResultsLabel()
         setUpZipcodeTextField()
     }
     
@@ -95,11 +104,22 @@ class MainWeatherView: UIView {
         
     }
     
+    private func setUpNoResultsLabel() {
+        addSubview(noResultsLabel)
+        
+        noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        noResultsLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16).isActive = true
+        noResultsLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        noResultsLabel.bounds = CGRect(x: 0, y: 0, width: self.bounds.width, height: 0)
+    
+    }
+    
     private func setUpZipcodeTextField() {
         addSubview(zipcodeTextField)
         
         zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        zipcodeTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16).isActive = true
+        zipcodeTextField.topAnchor.constraint(equalTo: noResultsLabel.bottomAnchor, constant: 16).isActive = true
         zipcodeTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         zipcodeTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
         zipcodeTextField.heightAnchor.constraint(equalTo: cityNameLabel.heightAnchor).isActive = true
@@ -110,4 +130,33 @@ class MainWeatherView: UIView {
         zipcodeTextField.layer.cornerRadius = 10
     }
     
+}
+
+//MARK: - Animation Functions
+extension MainWeatherView {
+    func animateAddNoResultsLabel() {
+        noResultsLabel.text = "No Results Available"
+        
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: UIViewKeyframeAnimationOptions.calculationModeCubic, animations: {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: {
+                self.layoutIfNeeded()
+            })
+            
+        }, completion: nil)
+    }
+    
+    func animateRemoveNoResultsLabel() {
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: UIViewKeyframeAnimationOptions.calculationModeCubic, animations: {
+
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: {
+                self.noResultsLabel.text = ""
+            })
+
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: {
+                self.layoutIfNeeded()
+            })
+
+        }, completion: nil)
+    }
 }

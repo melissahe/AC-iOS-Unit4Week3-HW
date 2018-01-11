@@ -15,6 +15,7 @@
 		8156585820042807009DD554 /* DetailedWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8156585720042807009DD554 /* DetailedWeatherViewController.swift */; };
 		8156585A2004283C009DD554 /* FavoriteImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815658592004283C009DD554 /* FavoriteImagesViewController.swift */; };
 		8156585D2004287F009DD554 /* MainWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8156585C2004287F009DD554 /* MainWeatherView.swift */; };
+		8167BC232006FB8600BE6725 /* DetailedWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8167BC222006FB8600BE6725 /* DetailedWeatherView.swift */; };
 		81B9A0BB2005BC42001CA025 /* MainWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B9A0BA2005BC41001CA025 /* MainWeatherCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		8156585720042807009DD554 /* DetailedWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWeatherViewController.swift; sourceTree = "<group>"; };
 		815658592004283C009DD554 /* FavoriteImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteImagesViewController.swift; sourceTree = "<group>"; };
 		8156585C2004287F009DD554 /* MainWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherView.swift; sourceTree = "<group>"; };
+		8167BC222006FB8600BE6725 /* DetailedWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWeatherView.swift; sourceTree = "<group>"; };
 		81B9A0BA2005BC41001CA025 /* MainWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			children = (
 				8156585C2004287F009DD554 /* MainWeatherView.swift */,
 				81B9A0BA2005BC41001CA025 /* MainWeatherCollectionViewCell.swift */,
+				8167BC222006FB8600BE6725 /* DetailedWeatherView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				5410A6D31FFFDF6500935A9A /* ZipCodeHelper.swift in Sources */,
 				81B9A0BB2005BC42001CA025 /* MainWeatherCollectionViewCell.swift in Sources */,
 				8156585820042807009DD554 /* DetailedWeatherViewController.swift in Sources */,
+				8167BC232006FB8600BE6725 /* DetailedWeatherView.swift in Sources */,
 				8156585D2004287F009DD554 /* MainWeatherView.swift in Sources */,
 				5410A6C31FFFDF1200935A9A /* MainWeatherViewController.swift in Sources */,
 				8156585A2004283C009DD554 /* FavoriteImagesViewController.swift in Sources */,

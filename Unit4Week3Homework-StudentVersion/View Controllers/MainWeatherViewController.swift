@@ -14,9 +14,17 @@ class MainWeatherViewController: UIViewController {
     
     var mainWeatherView: MainWeatherView!
     
-    var zipcode: String? //to do
+    var zipcode: String = "" {
+        didSet {
+            //to do
+                //save zip code in user defaults
+                //trigger load data with new zipcode
+            print("zipcode saved!!")
+        }
+    }
     
 //    var weathers: //datasource variable, to do
+    //if this is empty, it should use remove label animation - or maybe make it happen in network requests
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +36,7 @@ class MainWeatherViewController: UIViewController {
         
         //figure out collection view and labels and stuff?
         setUpCollectionView()
+        setUpZipcodeTextField()
     }
     
     func setUpMainWeatherView() {
@@ -47,8 +56,16 @@ class MainWeatherViewController: UIViewController {
     func setUpCollectionView() {
         mainWeatherView.collectionView.delegate = self
         mainWeatherView.collectionView.dataSource = self
+        
+        //to do - set up data source variable?
     }
+    
+    func setUpZipcodeTextField() {
 
+        mainWeatherView.zipcodeTextField.delegate = self
+        
+        //to do - load saved zipcode?
+    }
 
 }
 
@@ -103,6 +120,28 @@ extension MainWeatherViewController: UICollectionViewDataSource {
         cell.layer.cornerRadius = 15
         
         return cell
+    }
+    
+}
+
+//MARK: - Text Field Delegate Methods
+extension MainWeatherViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if "0123456789".contains(string) || string == "" {
+            return true
+        }
+        
+        return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let zipcode = textField.text {
+            self.zipcode = zipcode
+            mainWeatherView.animateRemoveNoResultsLabel()
+        }
+        
+        return true
     }
     
 }
