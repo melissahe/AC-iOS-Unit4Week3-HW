@@ -39,6 +39,7 @@ class DetailedWeatherViewController: UIViewController {
         detailedView.layoutIfNeeded()
         
         detailedView.dismissView.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        detailedView.dismissButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
     
     @objc func dismissView() {

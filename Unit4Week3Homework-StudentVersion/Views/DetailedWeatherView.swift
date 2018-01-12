@@ -26,6 +26,14 @@ class DetailedWeatherView: UIView {
         return view
     }()
     
+    lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        
+        button.setImage(#imageLiteral(resourceName: "dismissButtonIcon"), for: .normal)
+        
+        return button
+    }()
+    
     lazy var dateLabel: UILabel = {
         let label = UILabel()
         
@@ -35,6 +43,100 @@ class DetailedWeatherView: UIView {
         
         return label
     }()
+    
+    lazy var cityImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = #imageLiteral(resourceName: "sunnywn") //to delete later!!!!
+        imageView.setContentHuggingPriority(UILayoutPriority(249), for: .vertical)
+        
+        return imageView
+    }()
+    
+    //detail view labels
+    lazy var highTempLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "high" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var lowTempLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "low" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var sunriseLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "sunrise" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var sunsetLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "sunset" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var windspeedLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "windspeed" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var precipitationLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.text = "precipitation" //DELETE LATER!!!
+        //maybe do font as well!!!1
+        
+        return label
+    }()
+    
+    lazy var weatherTitleStackView: UIStackView = {
+        let stackView = WeatherLabelStackView()
+        
+        return stackView
+    }()
+    
+    lazy var weatherLabelStackView: UIStackView = {
+        let stackView = WeatherLabelStackView()
+        
+        stackView.arrangedSubviews.forEach{
+            ($0 as! UILabel).textAlignment = .right
+        }
+        
+        return stackView
+    }()
+    
     
     //TO DO - FINISH THE OTHER OBJECTS!!
 
@@ -67,7 +169,11 @@ class DetailedWeatherView: UIView {
         setUpBlurView()
         setUpDismissView()
         setUpDetailedView()
+        setUpDismissButton()
         setUpDateLabel()
+        setUpWeatherTitleStackView()
+        setUpWeatherLabelStackView()
+        setUpCityImageView()
     }
     
     private func setUpBlurView() {
@@ -91,19 +197,27 @@ class DetailedWeatherView: UIView {
     }
     
     private func setUpDetailedView() {
-        //do some animation stuff for detailed view!!!!!! - maybe in view did load in detailed view controller
-        
         addSubview(detailedView)
      
         detailedView.translatesAutoresizingMaskIntoConstraints = false
         
         detailedView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         detailedView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        detailedView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85).isActive = true
+        detailedView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75).isActive = true
         detailedView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.85).isActive = true
         
         detailedView.layer.masksToBounds = true
         detailedView.layer.cornerRadius = 20
+    }
+    
+    private func setUpDismissButton() {
+        detailedView.addSubview(dismissButton)
+        
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        dismissButton.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 8).isActive = true
+        
+        dismissButton.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor, constant: -8).isActive = true
     }
     
     private func setUpDateLabel() {
@@ -111,10 +225,49 @@ class DetailedWeatherView: UIView {
         
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        dateLabel.topAnchor.constraint(equalTo: detailedView.topAnchor).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: dismissButton.bottomAnchor).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
-        dateLabel.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.20).isActive = true
+        dateLabel.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.10).isActive = true
+    }
+    
+    private func setUpWeatherTitleStackView() {
+
+        detailedView.addSubview(weatherTitleStackView)
+        
+        weatherTitleStackView.translatesAutoresizingMaskIntoConstraints = false
+        weatherTitleStackView.bottomAnchor.constraint(equalTo: detailedView.bottomAnchor, constant: -16).isActive = true
+        weatherTitleStackView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor, constant: 16).isActive = true
+        
+            weatherTitleStackView.widthAnchor.constraint(equalTo: detailedView.widthAnchor, multiplier: 0.5, constant: -16).isActive = true
+        
+        weatherTitleStackView.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.30).isActive = true
+        
+    }
+    
+    private func setUpWeatherLabelStackView() {
+        
+        detailedView.addSubview(weatherLabelStackView)
+        
+        weatherLabelStackView.translatesAutoresizingMaskIntoConstraints = false
+        weatherLabelStackView.bottomAnchor.constraint(equalTo: detailedView.bottomAnchor, constant: -16).isActive = true
+        weatherLabelStackView.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor, constant: -16).isActive = true
+        
+        weatherLabelStackView.widthAnchor.constraint(equalTo: detailedView.widthAnchor, multiplier: 0.5, constant: -16).isActive = true
+        
+        weatherLabelStackView.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.30).isActive = true
+        
+    }
+    
+    private func setUpCityImageView() {
+        detailedView.addSubview(cityImageView)
+        
+        cityImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        cityImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 0).isActive = true
+        cityImageView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
+        cityImageView.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
+        cityImageView.bottomAnchor.constraint(equalTo: weatherLabelStackView.topAnchor, constant: -16).isActive = true
     }
     
 }
@@ -140,7 +293,7 @@ extension DetailedWeatherView {
 
     }
     
-    //should be called when the view gets dismissed
+    //should be called when the view gets dismissed - maybe delete
     func animateDetailedViewTransitionOut() {
         
     }

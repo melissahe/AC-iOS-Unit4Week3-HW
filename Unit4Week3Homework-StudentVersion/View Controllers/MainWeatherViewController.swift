@@ -115,7 +115,6 @@ extension MainWeatherViewController: UICollectionViewDelegate {
             
             cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             
-            
         }, completion: { (_) in
 
             UIView.animateKeyframes(withDuration: 0.20, delay: 0, options: [.calculationModeCubicPaced], animations: {
