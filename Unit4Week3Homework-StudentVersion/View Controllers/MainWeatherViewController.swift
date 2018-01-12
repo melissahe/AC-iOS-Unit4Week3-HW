@@ -17,9 +17,9 @@ class MainWeatherViewController: UIViewController {
     var zipcode: String = "" {
         didSet {
             //to do
-                //save zip code in user defaults
-                //trigger load data with new zipcode
+            UserDefaultsHelper.manager.saveZipcode(zipcode)
             print("zipcode saved!!")
+            loadData()
         }
     }
     
@@ -64,7 +64,15 @@ class MainWeatherViewController: UIViewController {
 
         mainWeatherView.zipcodeTextField.delegate = self
         
-        //to do - load saved zipcode?
+        if let zipcode = UserDefaultsHelper.manager.getZipcode() {
+            self.zipcode = zipcode
+            mainWeatherView.zipcodeTextField.text = zipcode
+        }
+    }
+    
+    //to do
+    func loadData() {
+        //somehow make the collection view always start at the first cell, animated!
     }
 
 }
@@ -177,13 +185,9 @@ extension MainWeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let zipcode = textField.text {
             self.zipcode = zipcode
+            mainWeatherView.animateRemoveNoResultsLabel()
         }
         
-        if zipcode == "10002" {
-            mainWeatherView.animateRemoveNoResultsLabel()
-        } else {
-            mainWeatherView.animateAddNoResultsLabel()
-        }
         return true
     }
     

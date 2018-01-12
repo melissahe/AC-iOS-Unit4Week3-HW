@@ -137,8 +137,7 @@ class DetailedWeatherView: UIView {
         return stackView
     }()
     
-    
-    //TO DO - FINISH THE OTHER OBJECTS!!
+    //TO DO - SET UP CONFIGURING VIEWS AND ALSO THE SAVE BUTTON!!!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -293,8 +292,4 @@ extension DetailedWeatherView {
 
     }
     
-    //should be called when the view gets dismissed - maybe delete
-    func animateDetailedViewTransitionOut() {
-        
-    }
 }
