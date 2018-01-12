@@ -19,6 +19,10 @@
 		819429CA20083710002A8897 /* WeatherLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429C920083710002A8897 /* WeatherLabelStackView.swift */; };
 		819429CC200843B0002A8897 /* FavoriteImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429CB200843B0002A8897 /* FavoriteImageTableViewCell.swift */; };
 		819429CE20084573002A8897 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429CD20084573002A8897 /* UserDefaultsHelper.swift */; };
+		819429D020084872002A8897 /* WeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429CF20084872002A8897 /* WeatherAPIClient.swift */; };
+		819429D2200848C4002A8897 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429D1200848C4002A8897 /* NetworkHelper.swift */; };
+		819429D52008493E002A8897 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429D42008493E002A8897 /* AppError.swift */; };
+		819429D720084A31002A8897 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429D620084A31002A8897 /* Weather.swift */; };
 		81B9A0BB2005BC42001CA025 /* MainWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B9A0BA2005BC41001CA025 /* MainWeatherCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +41,10 @@
 		819429C920083710002A8897 /* WeatherLabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLabelStackView.swift; sourceTree = "<group>"; };
 		819429CB200843B0002A8897 /* FavoriteImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteImageTableViewCell.swift; sourceTree = "<group>"; };
 		819429CD20084573002A8897 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		819429CF20084872002A8897 /* WeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIClient.swift; sourceTree = "<group>"; };
+		819429D1200848C4002A8897 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		819429D42008493E002A8897 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		819429D620084A31002A8897 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		81B9A0BA2005BC41001CA025 /* MainWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,8 +90,11 @@
 		8156585420042769009DD554 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				819429D320084927002A8897 /* Network Models */,
 				5410A6D21FFFDF6500935A9A /* ZipCodeHelper.swift */,
 				819429CD20084573002A8897 /* UserDefaultsHelper.swift */,
+				819429D620084A31002A8897 /* Weather.swift */,
+				819429CF20084872002A8897 /* WeatherAPIClient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -118,6 +129,15 @@
 				819429CB200843B0002A8897 /* FavoriteImageTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		819429D320084927002A8897 /* Network Models */ = {
+			isa = PBXGroup;
+			children = (
+				819429D42008493E002A8897 /* AppError.swift */,
+				819429D1200848C4002A8897 /* NetworkHelper.swift */,
+			);
+			path = "Network Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,12 +211,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819429D2200848C4002A8897 /* NetworkHelper.swift in Sources */,
 				819429CC200843B0002A8897 /* FavoriteImageTableViewCell.swift in Sources */,
 				5410A6D31FFFDF6500935A9A /* ZipCodeHelper.swift in Sources */,
 				81B9A0BB2005BC42001CA025 /* MainWeatherCollectionViewCell.swift in Sources */,
+				819429D720084A31002A8897 /* Weather.swift in Sources */,
 				8156585820042807009DD554 /* DetailedWeatherViewController.swift in Sources */,
 				819429CA20083710002A8897 /* WeatherLabelStackView.swift in Sources */,
+				819429D52008493E002A8897 /* AppError.swift in Sources */,
 				8167BC232006FB8600BE6725 /* DetailedWeatherView.swift in Sources */,
+				819429D020084872002A8897 /* WeatherAPIClient.swift in Sources */,
 				8156585D2004287F009DD554 /* MainWeatherView.swift in Sources */,
 				819429CE20084573002A8897 /* UserDefaultsHelper.swift in Sources */,
 				5410A6C31FFFDF1200935A9A /* MainWeatherViewController.swift in Sources */,
