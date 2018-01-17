@@ -37,6 +37,7 @@ struct Location: Codable {
 }
 
 struct Forecast: Codable {
+    let date: String
     let maxTempC: Int
     let maxTempF: Int
     let minTempC: Int
@@ -51,6 +52,7 @@ struct Forecast: Codable {
     
     enum CodingKeys: String, CodingKey {
         case maxTempC, maxTempF, minTempC, minTempF, windSpeedKPH, windSpeedMPH, icon
+        case date = "dateTimeISO"
         case precipitationMM = "precipMM"
         case precipitationIN = "precipIN"
         case sunriseTime = "sunriseISO"

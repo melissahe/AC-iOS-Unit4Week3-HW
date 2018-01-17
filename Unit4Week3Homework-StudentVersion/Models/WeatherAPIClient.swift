@@ -14,7 +14,7 @@ class WeatherAPIClient {
     private let accessID = "g4qZZgkhXMsNxq8FGcqPi"
     private let apiKey = "wasdGv7DYaU4EvIKrtosU73bzds3iTU2ueFvhJXz"
     
-    func getWeather(fromZipcode zipcode: String, completionHandler: @escaping (Weather) -> Void, errorHandler: @escaping (Error) -> Void) {
+    func getWeather(fromZipcode zipcode: String, completionHandler: @escaping (Weather?) -> Void, errorHandler: @escaping (Error) -> Void) {
         
         let urlString = "https://api.aerisapi.com/forecasts/\(zipcode)?client_id=\(accessID)&client_secret=\(apiKey)"
         
@@ -32,7 +32,11 @@ class WeatherAPIClient {
                 
                 let results = try jsonDecoder.decode(Results.self, from: data)
                 
-                completionHandler(results.weather[0])
+                if results.weather.isEmpty {
+                    completionHandler(nil)
+                } else {
+                    completionHandler(results.weather[0])
+                }
             } catch {
                 errorHandler(AppError.cannotParseJSON(rawError: error))
             }

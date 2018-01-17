@@ -62,13 +62,16 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         commonInit()
     }
     
-    //to finish
-    func configureCell() {
-        //        self.contentView.backgroundColor = UIColor(red: 0.984, green: 0.761, blue: 0.8, alpha: 1)
+    func configureCell(withForecast forecast: Forecast) {
         
-        //to do - assign values to everything!!
+        let date = forecast.date.components(separatedBy: "T")[0]
         
-        configureImages(forWeatherName: "")
+        dateLabel.text = date
+        highTempLabel.text = "\(forecast.maxTempF)ºF"
+        lowTempLabel.text = "\(forecast.minTempF)ºF"
+        let weatherName = forecast.icon.components(separatedBy: ".")[0]
+        
+        configureImages(for: weatherName)
     }
     
     private func commonInit() {
@@ -117,7 +120,6 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         highTempLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
     }
     
-    //to do
     private func setUpWeatherImageView() {
         addSubview(weatherImageView)
         
@@ -129,8 +131,8 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         weatherImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
     }
     
-    private func configureImages(forWeatherName weatherName: String) {
-        //to do - check for image with name passed in
+    private func configureImages(for weatherName: String) {
+        self.weatherImageView.image = UIImage(named: weatherName)
     }
     
 }

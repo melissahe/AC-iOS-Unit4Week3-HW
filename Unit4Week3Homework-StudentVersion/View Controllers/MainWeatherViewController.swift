@@ -23,8 +23,23 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-//    var weathers: //datasource variable, to do
-    //if this is empty, it should use remove label animation - or maybe make it happen in network requests
+    var weather: Weather? {
+        didSet {
+            guard let weather = weather else {
+                self.forecasts = []
+                return
+            }
+            
+            self.forecasts = weather.forecasts
+            //set title for city name label using zipcode helper!!!
+        }
+    }
+    
+    var forecasts: [Forecast] = [] {
+        didSet {
+            mainWeatherView.collectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,15 +85,26 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-    //to do
     func loadData() {
-        //somehow make the collection view always start at the first cell, animated!
+        WeatherAPIClient.manager.getWeather(fromZipcode: self.zipcode, completionHandler: { (onlineWeather) in
+            guard let onlineWeather = onlineWeather else {
+               self.weather = nil
+                self.mainWeatherView.animateAddNoResultsLabel()
+                return
+            }
+            
+            self.weather = onlineWeather
+        }, errorHandler: { (error) in
+            print(error)
+            self.mainWeatherView.animateAddNoResultsLabel()
+        })
     }
 
 }
 
 //MARK: - Collection View Delegate Flow Layout Methods
 extension MainWeatherViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfCells: CGFloat = 2.5
         let numberOfSpaces: CGFloat = numberOfCells + 1
@@ -112,7 +138,7 @@ extension MainWeatherViewController: UICollectionViewDelegate {
         
         let detailedVC = DetailedWeatherViewController()
         
-        detailedVC.modalPresentationStyle = .overCurrentContext
+        detailedVC.modalPresentationStyle = .overFullScreen
         detailedVC.modalTransitionStyle = .coverVertical
         
         //Extra Credit
@@ -135,7 +161,6 @@ extension MainWeatherViewController: UICollectionViewDelegate {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.10, relativeDuration: 0.90, animations: {
                     
-                    self.present(detailedVC, animated: true, completion: nil)
                     
                 })
                 
@@ -144,6 +169,7 @@ extension MainWeatherViewController: UICollectionViewDelegate {
             
         })
         
+        self.present(detailedVC, animated: true, completion: nil)
         //to do, should trigger programmatic segue to detailed view
         //pass in info
     }
@@ -154,14 +180,14 @@ extension MainWeatherViewController: UICollectionViewDelegate {
 extension MainWeatherViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return forecasts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! MainWeatherCollectionViewCell
-        
+        let currentForecast = forecasts[indexPath.row]
         //to do - make custom table view cell
-        cell.configureCell()
+        cell.configureCell(withForecast: currentForecast)
         
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 15

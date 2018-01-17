@@ -19,11 +19,11 @@ class DetailedWeatherViewController: UIViewController {
         setUpDetailedView()
     }
     
+    //TO DO NEXT!!
+    
     func setUpDetailedView() {
-        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
-        
         //maybe have some parameters you can pass in to set things up!!!
-        detailedView = DetailedWeatherView(frame: safeAreaLayoutGuide.layoutFrame)
+        detailedView = DetailedWeatherView(frame: UIScreen.main.bounds)
         //to do other stuff!!!
         
         self.view.backgroundColor = .clear
@@ -31,10 +31,10 @@ class DetailedWeatherViewController: UIViewController {
         self.view.addSubview(detailedView)
         detailedView.translatesAutoresizingMaskIntoConstraints = false
         
-        detailedView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        detailedView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         detailedView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         detailedView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        detailedView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        detailedView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
         detailedView.layoutIfNeeded()
         
