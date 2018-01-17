@@ -16,28 +16,50 @@ class MainWeatherViewController: UIViewController {
     
     var zipcode: String = "" {
         didSet {
-            //to do
             UserDefaultsHelper.manager.saveZipcode(zipcode)
             print("zipcode saved!!")
+            
+            if let cityName = UserDefaultsHelper.manager.getCity(forZipcode: zipcode) {
+                
+                self.mainWeatherView.cityNameLabel.text = "7-Day Forecast for \(cityName)"
+                
+            } else {
+                ZipCodeHelper.manager.getLocationName(from: zipcode, completionHandler: { (cityName) in
+                    self.mainWeatherView.cityNameLabel.text = "7-Day Forecast for \(cityName)"
+                    
+                    UserDefaultsHelper.manager.saveCity(withZipcode: self.zipcode, andCityName: cityName)
+                }, errorHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    
+                    self.mainWeatherView.cityNameLabel.text = "No Weather Data Available"
+                    
+                })
+            }
+            
             loadData()
         }
+        
     }
     
     var weather: Weather? {
         didSet {
             guard let weather = weather else {
                 self.forecasts = []
+                
                 return
             }
             
             self.forecasts = weather.forecasts
-            //set title for city name label using zipcode helper!!!
+            
         }
     }
     
     var forecasts: [Forecast] = [] {
         didSet {
             mainWeatherView.collectionView.reloadData()
+            
         }
     }
     
@@ -45,11 +67,8 @@ class MainWeatherViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "Search"
-        //load the actual zipcode first, to get city, then use dependency injection to pass the city and info to the main weather view, which will have a function that sets up all that stuff using the info that was passed in
         
         setUpMainWeatherView()
-        
-        //figure out collection view and labels and stuff?
         setUpCollectionView()
         setUpZipcodeTextField()
     }
@@ -72,7 +91,6 @@ class MainWeatherViewController: UIViewController {
         mainWeatherView.collectionView.delegate = self
         mainWeatherView.collectionView.dataSource = self
         
-        //to do - set up data source variable?
     }
     
     func setUpZipcodeTextField() {
@@ -186,7 +204,7 @@ extension MainWeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! MainWeatherCollectionViewCell
         let currentForecast = forecasts[indexPath.row]
-        //to do - make custom table view cell
+     
         cell.configureCell(withForecast: currentForecast)
         
         cell.layer.masksToBounds = true
@@ -213,6 +231,8 @@ extension MainWeatherViewController: UITextFieldDelegate {
             self.zipcode = zipcode
             mainWeatherView.animateRemoveNoResultsLabel()
         }
+        
+        mainWeatherView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
         
         return true
     }
