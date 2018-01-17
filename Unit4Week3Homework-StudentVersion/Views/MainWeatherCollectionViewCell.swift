@@ -14,7 +14,6 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.textAlignment = .center
-        label.text = "date label" //to delete later
         label.numberOfLines = 0
         label.backgroundColor = .white
         
@@ -25,7 +24,6 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "sunny") //to delete later
         
         return imageView
     }()
@@ -34,7 +32,6 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.textAlignment = .center
-        label.text = "high label" //to delete later
         label.numberOfLines = 0
         label.backgroundColor = .white
         
@@ -45,7 +42,6 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.textAlignment = .center
-        label.text = "low label" //to delete later
         label.numberOfLines = 0
         label.backgroundColor = .white
         

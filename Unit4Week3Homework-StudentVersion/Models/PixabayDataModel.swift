@@ -43,6 +43,7 @@ class PixabayDataModel {
         do {
             let data = try encoder.encode(favoriteImageURLs)
             try data.write(to: filePath)
+            print("save successful!!")
         } catch let error {
             print(error)
         }
@@ -59,6 +60,7 @@ class PixabayDataModel {
             let favorites = try decoder.decode([String].self, from: data)
             
             self.favoriteImageURLs = favorites
+            print("loaded favorites!")
         } catch let error {
             print(error)
         }
@@ -80,6 +82,7 @@ class PixabayDataModel {
             
             do {
                 try data.write(to: filePath)
+                print("add successful!1")
             } catch {
                 print(error)
             }
@@ -90,6 +93,19 @@ class PixabayDataModel {
     //get
     func getFavorites() -> [String] {
         return favoriteImageURLs
+    }
+    
+    func getImage(withImageURL imageURL: String) -> UIImage? {
+        let filePath = dataFilePath(fileName: imageURL)
+        
+        do {
+            let data = try Data(contentsOf: filePath)
+            
+            return UIImage(data: data)
+        } catch {
+            print(error)
+            return nil
+        }
     }
     
 }

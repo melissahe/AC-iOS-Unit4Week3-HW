@@ -14,6 +14,7 @@ class FavoriteImageTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 750), for: .vertical)
         
         return imageView
     }()
@@ -28,6 +29,15 @@ class FavoriteImageTableViewCell: UITableViewCell {
         commonInit()
     }
     
+    func configureCell(withImageURL imageURL: String) {
+        guard let image = PixabayDataModel.manager.getImage(withImageURL: imageURL) else {
+            return
+        }
+        
+        self.favoriteImageView.image = image
+        self.layoutIfNeeded()
+    }
+    
     private func commonInit() {
         setUpConstraints()
     }
@@ -37,10 +47,17 @@ class FavoriteImageTableViewCell: UITableViewCell {
         
         favoriteImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
                 favoriteImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
                 favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-                favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        
+       let heightAnchor = favoriteImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 250)
+        
+        heightAnchor.priority = UILayoutPriority(rawValue: 999)
+        
+        heightAnchor.isActive = true
+        
     }
 
 }

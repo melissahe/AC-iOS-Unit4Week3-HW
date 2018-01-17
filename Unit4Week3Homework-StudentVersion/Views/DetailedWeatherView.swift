@@ -10,6 +10,8 @@ import UIKit
 
 class DetailedWeatherView: UIView {
     
+    var currentURL: URL? = nil
+    
     lazy var dismissView: UIButton = {
         let button = UIButton()
         
@@ -68,6 +70,7 @@ class DetailedWeatherView: UIView {
         
         imageView.contentMode = .scaleAspectFit
         imageView.setContentHuggingPriority(UILayoutPriority(249), for: .vertical)
+        imageView.backgroundColor = UIColor(red: 0.851, green: 0.855, blue: 0.851, alpha: 0.60)
         
         return imageView
     }()
@@ -88,7 +91,15 @@ class DetailedWeatherView: UIView {
         return stackView
     }()
     
-    //TO DO - SET UP CONFIGURING VIEWS AND ALSO THE SAVE BUTTON!!!
+    lazy var saveButton: UIButton = {
+        let button = UIButton()
+        
+        button.imageView?.contentMode = .scaleAspectFit
+        button.isEnabled = false
+        button.tintColor = UIColor(red: 1, green: 0.414, blue: 0.515, alpha: 1)
+        
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -151,6 +162,7 @@ class DetailedWeatherView: UIView {
         setUpWeatherTitleStackView()
         setUpWeatherLabelStackView()
         setUpCityImageView()
+        setUpSaveButton()
     }
     
     private func setUpBlurView() {
@@ -270,12 +282,20 @@ class DetailedWeatherView: UIView {
         cityImageView.bottomAnchor.constraint(equalTo: weatherLabelStackView.topAnchor, constant: -16).isActive = true
     }
     
-    //to do
+    private func setUpSaveButton() {
+        detailedView.addSubview(saveButton)
+        
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        saveButton.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor, constant: -8).isActive = true
+        saveButton.topAnchor.constraint(equalTo: cityImageView.topAnchor, constant: 8).isActive = true
+    }
+    
     private func configureImage(forCityName cityName: String) {
-        //to do - use pixabay api to get image!!
-//        self.layoutIfNeeded()
         
         PixabayAPIClient.manager.getPixabayImageLink(cityName: cityName, completionHandler: { (pixabayURL) in
+            
+            self.currentURL = pixabayURL
             
             do {
                 let data = try Data(contentsOf: pixabayURL)
@@ -285,6 +305,22 @@ class DetailedWeatherView: UIView {
                 }
                 
                 self.cityImageView.image = image
+                self.saveButton.isEnabled = true
+                
+                let lastPathComponent = pixabayURL.lastPathComponent
+                
+                //used this link for the idea on how to make the image able to changed through button tint color - https://stackoverflow.com/questions/19829356/color-tint-uibutton-image
+                
+                if PixabayDataModel.manager.getFavorites().contains(lastPathComponent) {
+                    
+                    let image = UIImage(named: "favorite-filled")?.withRenderingMode(.alwaysTemplate)
+                    
+                    self.saveButton.setImage(image, for: .normal)
+                } else {
+                    let image = UIImage(named: "favorite-unfilled")?.withRenderingMode(.alwaysTemplate)
+                    
+                    self.saveButton.setImage(image, for: .normal)
+                }
                 
                 self.layoutIfNeeded()
             } catch {
