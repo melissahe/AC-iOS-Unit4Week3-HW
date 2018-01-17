@@ -80,23 +80,6 @@ class WeatherLabelStackView: UIStackView {
         commonInit()
     }
     
-    func configureViews(withForecast forecast: Forecast) {
-        let sunriseTime = forecast.sunriseTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
-        let sunsetTime = forecast.sunsetTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
-        
-        //        sunriseLabel.text = sunriseTime
-        //        sunsetLabel.text = sunsetTime
-        //
-        //        //start extra credit here!!! - to do
-        //
-        //        highTempLabel.text = forecast.maxTempF.description + "ºF"
-        //        lowTempLabel.text = forecast.minTempF.description + "ºF"
-        //        windspeedLabel.text = forecast.windSpeedMPH.description + " MPH"
-        //        precipitationLabel.text = forecast.precipitationIN.description + " IN"
-        //
-        //setup image later - using lat and long of the weather?
-    }
-    
     private func commonInit() {
         self.distribution = .fillEqually
         self.alignment = .fill
