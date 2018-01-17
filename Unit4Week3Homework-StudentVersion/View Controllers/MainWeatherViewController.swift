@@ -28,6 +28,8 @@ class MainWeatherViewController: UIViewController {
                     self.mainWeatherView.cityNameLabel.text = "7-Day Forecast for \(cityName)"
                     
                     UserDefaultsHelper.manager.saveCity(withZipcode: self.zipcode, andCityName: cityName)
+                    
+                    print("city name saved!!")
                 }, errorHandler: { (error) in
                     if let error = error {
                         print(error)
@@ -154,7 +156,17 @@ extension MainWeatherViewController: UICollectionViewDelegate {
             return
         }
         
-        let detailedVC = DetailedWeatherViewController()
+        guard let weather = weather else {
+            return
+        }
+        
+        let currentForecast = forecasts[indexPath.row]
+        
+        guard let cityName = UserDefaultsHelper.manager.getCity(forZipcode: zipcode) else {
+            return
+        }
+        
+        let detailedVC = DetailedWeatherViewController(weather: weather, forecast: currentForecast, cityName: cityName)
         
         detailedVC.modalPresentationStyle = .overFullScreen
         detailedVC.modalTransitionStyle = .coverVertical
@@ -232,7 +244,9 @@ extension MainWeatherViewController: UITextFieldDelegate {
             mainWeatherView.animateRemoveNoResultsLabel()
         }
         
+        if !forecasts.isEmpty {
         mainWeatherView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+        }
         
         return true
     }

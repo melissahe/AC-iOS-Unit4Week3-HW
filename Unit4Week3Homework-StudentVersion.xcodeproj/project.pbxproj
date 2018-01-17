@@ -16,6 +16,8 @@
 		8156585A2004283C009DD554 /* FavoriteImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815658592004283C009DD554 /* FavoriteImagesViewController.swift */; };
 		8156585D2004287F009DD554 /* MainWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8156585C2004287F009DD554 /* MainWeatherView.swift */; };
 		8167BC232006FB8600BE6725 /* DetailedWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8167BC222006FB8600BE6725 /* DetailedWeatherView.swift */; };
+		817340F1200F286600AD760E /* Pixabay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817340F0200F286600AD760E /* Pixabay.swift */; };
+		817340F3200F287400AD760E /* PixabayAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817340F2200F287400AD760E /* PixabayAPIClient.swift */; };
 		819429CA20083710002A8897 /* WeatherLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429C920083710002A8897 /* WeatherLabelStackView.swift */; };
 		819429CC200843B0002A8897 /* FavoriteImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429CB200843B0002A8897 /* FavoriteImageTableViewCell.swift */; };
 		819429CE20084573002A8897 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819429CD20084573002A8897 /* UserDefaultsHelper.swift */; };
@@ -38,6 +40,8 @@
 		815658592004283C009DD554 /* FavoriteImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteImagesViewController.swift; sourceTree = "<group>"; };
 		8156585C2004287F009DD554 /* MainWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherView.swift; sourceTree = "<group>"; };
 		8167BC222006FB8600BE6725 /* DetailedWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWeatherView.swift; sourceTree = "<group>"; };
+		817340F0200F286600AD760E /* Pixabay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixabay.swift; sourceTree = "<group>"; };
+		817340F2200F287400AD760E /* PixabayAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayAPIClient.swift; sourceTree = "<group>"; };
 		819429C920083710002A8897 /* WeatherLabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLabelStackView.swift; sourceTree = "<group>"; };
 		819429CB200843B0002A8897 /* FavoriteImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteImageTableViewCell.swift; sourceTree = "<group>"; };
 		819429CD20084573002A8897 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 				819429CD20084573002A8897 /* UserDefaultsHelper.swift */,
 				819429D620084A31002A8897 /* Weather.swift */,
 				819429CF20084872002A8897 /* WeatherAPIClient.swift */,
+				817340F0200F286600AD760E /* Pixabay.swift */,
+				817340F2200F287400AD760E /* PixabayAPIClient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,6 +223,8 @@
 				81B9A0BB2005BC42001CA025 /* MainWeatherCollectionViewCell.swift in Sources */,
 				819429D720084A31002A8897 /* Weather.swift in Sources */,
 				8156585820042807009DD554 /* DetailedWeatherViewController.swift in Sources */,
+				817340F3200F287400AD760E /* PixabayAPIClient.swift in Sources */,
+				817340F1200F286600AD760E /* Pixabay.swift in Sources */,
 				819429CA20083710002A8897 /* WeatherLabelStackView.swift in Sources */,
 				819429D52008493E002A8897 /* AppError.swift in Sources */,
 				8167BC232006FB8600BE6725 /* DetailedWeatherView.swift in Sources */,

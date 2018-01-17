@@ -10,23 +10,30 @@ import UIKit
 
 class DetailedWeatherViewController: UIViewController {
 
-    //get weather and stuff from dependency injection
     var detailedView: DetailedWeatherView!
+    
+    init(weather: Weather, forecast: Forecast, cityName: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        detailedView = DetailedWeatherView(frame: UIScreen.main.bounds)
+        
+        detailedView.configureViews(forWeather: weather, forecast: forecast, andCityName: cityName)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("You cannot implement this!!")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .clear
         
         setUpDetailedView()
     }
     
-    //TO DO NEXT!!
-    
     func setUpDetailedView() {
         //maybe have some parameters you can pass in to set things up!!!
-        detailedView = DetailedWeatherView(frame: UIScreen.main.bounds)
         //to do other stuff!!!
-        
-        self.view.backgroundColor = .clear
         
         self.view.addSubview(detailedView)
         detailedView.translatesAutoresizingMaskIntoConstraints = false

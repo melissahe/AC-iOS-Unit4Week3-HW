@@ -31,6 +31,8 @@ class DetailedWeatherView: UIView {
         
         button.setImage(#imageLiteral(resourceName: "dismissButtonIcon"), for: .normal)
         
+        button.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .vertical)
+        
         return button
     }()
     
@@ -38,7 +40,24 @@ class DetailedWeatherView: UIView {
         let label = UILabel()
         
         label.textAlignment = .center
-        label.text = "Date Label" //delete me later
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
+    lazy var cityLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
+    lazy var weatherDescriptionLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .center
         label.numberOfLines = 0
         
         return label
@@ -48,77 +67,10 @@ class DetailedWeatherView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "sunnywn") //to delete later!!!!
+        imageView.image = #imageLiteral(resourceName: "placeholder")
         imageView.setContentHuggingPriority(UILayoutPriority(249), for: .vertical)
         
         return imageView
-    }()
-    
-    //detail view labels
-    lazy var highTempLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "high" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
-    }()
-    
-    lazy var lowTempLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "low" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
-    }()
-    
-    lazy var sunriseLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "sunrise" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
-    }()
-    
-    lazy var sunsetLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "sunset" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
-    }()
-    
-    lazy var windspeedLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "windspeed" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
-    }()
-    
-    lazy var precipitationLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "precipitation" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
-        return label
     }()
     
     lazy var weatherTitleStackView: UIStackView = {
@@ -127,7 +79,7 @@ class DetailedWeatherView: UIView {
         return stackView
     }()
     
-    lazy var weatherLabelStackView: UIStackView = {
+    lazy var weatherLabelStackView: WeatherLabelStackView = {
         let stackView = WeatherLabelStackView()
         
         stackView.arrangedSubviews.forEach{
@@ -154,13 +106,39 @@ class DetailedWeatherView: UIView {
     }
     
     //to do later
-    func configureView() {
-        //dependency injection stuff
+    func configureViews(forWeather weather: Weather, forecast: Forecast, andCityName cityName: String) {
+        
+        let date = forecast.date.components(separatedBy: "T")[0]
+        
+        dateLabel.text = date
+        
+        cityLabel.text = cityName
+        
+        weatherDescriptionLabel.text = forecast.weatherDescription
+        
+        let sunriseTime = forecast.sunriseTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
+        
+        let sunsetTime = forecast.sunsetTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
+        
+        weatherLabelStackView.sunriseLabel.text = sunriseTime
+        
+        weatherLabelStackView.sunsetLabel.text = sunsetTime
+        
+        //to do - extra credit units!!
+        
+        weatherLabelStackView.highTempLabel.text = forecast.maxTempF.description + " ºF"
+        
+        weatherLabelStackView.lowTempLabel.text = forecast.minTempF.description + " ºF"
+        
+        weatherLabelStackView.windspeedLabel.text = forecast.windSpeedMPH.description + " MPH"
+        
+        weatherLabelStackView.precipitationLabel.text = forecast.precipitationIN.description + " IN"
+        
+        configureImage(forWeather: weather)
     }
     
     private func commonInit() {
         backgroundColor = .clear
-        configureView()
         setUpViewConstraints()
     }
     
@@ -170,6 +148,8 @@ class DetailedWeatherView: UIView {
         setUpDetailedView()
         setUpDismissButton()
         setUpDateLabel()
+        setUpCityLabel()
+        setUpWeatherDescriptionLabel()
         setUpWeatherTitleStackView()
         setUpWeatherLabelStackView()
         setUpCityImageView()
@@ -227,8 +207,31 @@ class DetailedWeatherView: UIView {
         dateLabel.topAnchor.constraint(equalTo: dismissButton.bottomAnchor).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
-        dateLabel.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.10).isActive = true
+        dateLabel.heightAnchor.constraint(equalTo: detailedView.heightAnchor, multiplier: 0.05).isActive = true
     }
+    
+    private func setUpCityLabel() {
+        detailedView.addSubview(cityLabel)
+        
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        cityLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8).isActive = true
+        cityLabel.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
+        cityLabel.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
+        cityLabel.heightAnchor.constraint(equalTo: dateLabel.heightAnchor).isActive = true
+    }
+    
+    private func setUpWeatherDescriptionLabel() {
+        detailedView.addSubview(weatherDescriptionLabel)
+        
+        weatherDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        weatherDescriptionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 8).isActive = true
+        weatherDescriptionLabel.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
+        weatherDescriptionLabel.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
+        weatherDescriptionLabel.heightAnchor.constraint(equalTo: dateLabel.heightAnchor).isActive = true
+    }
+ 
     
     private func setUpWeatherTitleStackView() {
 
@@ -263,10 +266,16 @@ class DetailedWeatherView: UIView {
         
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        cityImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 0).isActive = true
+        cityImageView.topAnchor.constraint(equalTo: weatherDescriptionLabel.bottomAnchor, constant: 16).isActive = true
         cityImageView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
         cityImageView.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
         cityImageView.bottomAnchor.constraint(equalTo: weatherLabelStackView.topAnchor, constant: -16).isActive = true
+    }
+    
+    //to do
+    private func configureImage(forWeather weather: Weather) {
+        //to do - use pixabay api to get image!!
+        self.layoutIfNeeded()
     }
     
 }

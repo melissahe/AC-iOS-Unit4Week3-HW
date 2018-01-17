@@ -49,6 +49,7 @@ struct Forecast: Codable {
     let icon: String
     let sunriseTime: String
     let sunsetTime: String
+    let weatherDescription: String
     
     enum CodingKeys: String, CodingKey {
         case maxTempC, maxTempF, minTempC, minTempF, windSpeedKPH, windSpeedMPH, icon
@@ -57,6 +58,7 @@ struct Forecast: Codable {
         case precipitationIN = "precipIN"
         case sunriseTime = "sunriseISO"
         case sunsetTime = "sunsetISO"
+        case weatherDescription = "weatherPrimary"
     }
 }
 

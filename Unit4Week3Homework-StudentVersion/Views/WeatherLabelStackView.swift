@@ -16,8 +16,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "high" //DELETE LATER!!!
-        //maybe do font as well!!!1
+        label.text = "high"
         
         return label
     }()
@@ -27,8 +26,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "low" //DELETE LATER!!!
-        //maybe do font as well!!!1
+        label.text = "low"
         
         return label
     }()
@@ -38,8 +36,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "sunrise" //DELETE LATER!!!
-        //maybe do font as well!!!1
+        label.text = "sunrise"
         
         return label
     }()
@@ -49,8 +46,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "sunset" //DELETE LATER!!!
-        //maybe do font as well!!!1
+        label.text = "sunset"
         
         return label
     }()
@@ -60,9 +56,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "windspeed" //DELETE LATER!!!
-        //maybe do font as well!!!1
-        
+        label.text = "windspeed"
         return label
     }()
     
@@ -71,8 +65,7 @@ class WeatherLabelStackView: UIStackView {
         
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.text = "precipitation" //DELETE LATER!!!
-        //maybe do font as well!!!1
+        label.text = "precipitation"
         
         return label
     }()
@@ -85,6 +78,23 @@ class WeatherLabelStackView: UIStackView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+    }
+    
+    func configureViews(withForecast forecast: Forecast) {
+        let sunriseTime = forecast.sunriseTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
+        let sunsetTime = forecast.sunsetTime.components(separatedBy: "T")[1].components(separatedBy: "-")[0]
+        
+        //        sunriseLabel.text = sunriseTime
+        //        sunsetLabel.text = sunsetTime
+        //
+        //        //start extra credit here!!! - to do
+        //
+        //        highTempLabel.text = forecast.maxTempF.description + "ºF"
+        //        lowTempLabel.text = forecast.minTempF.description + "ºF"
+        //        windspeedLabel.text = forecast.windSpeedMPH.description + " MPH"
+        //        precipitationLabel.text = forecast.precipitationIN.description + " IN"
+        //
+        //setup image later - using lat and long of the weather?
     }
     
     private func commonInit() {
