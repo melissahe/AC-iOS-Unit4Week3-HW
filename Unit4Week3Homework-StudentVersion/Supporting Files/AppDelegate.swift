@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Main Weather View Controller
         let mainVC = MainWeatherViewController()
         let mainNavigationVC = UINavigationController(rootViewController: mainVC)
-        let mainTabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
+        let mainTabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search tab"), selectedImage: nil)
         mainNavigationVC.tabBarItem = mainTabBarItem
         
         //Favorite Images View Controller
         let favoriteImagesVC = FavoriteImagesViewController()
         let favoriteImagesNavigationVC = UINavigationController(rootViewController: favoriteImagesVC)
-        let favoriteImageTabBarItem = UITabBarItem(title: "Favorite Images", image: nil, selectedImage: nil)
+        let favoriteImageTabBarItem = UITabBarItem(title: "Favorite Images", image: #imageLiteral(resourceName: "favorite tab"), selectedImage: nil)
         favoriteImagesNavigationVC.tabBarItem = favoriteImageTabBarItem
         
         let tabBarVC = UITabBarController()
