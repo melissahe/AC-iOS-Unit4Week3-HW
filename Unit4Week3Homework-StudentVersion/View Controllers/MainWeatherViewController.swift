@@ -156,17 +156,13 @@ extension MainWeatherViewController: UICollectionViewDelegate {
             return
         }
         
-        guard let weather = weather else {
-            return
-        }
-        
         let currentForecast = forecasts[indexPath.row]
         
         guard let cityName = UserDefaultsHelper.manager.getCity(forZipcode: zipcode) else {
             return
         }
         
-        let detailedVC = DetailedWeatherViewController(weather: weather, forecast: currentForecast, cityName: cityName)
+        let detailedVC = DetailedWeatherViewController(forecast: currentForecast, cityName: cityName)
         
         detailedVC.modalPresentationStyle = .overFullScreen
         detailedVC.modalTransitionStyle = .coverVertical

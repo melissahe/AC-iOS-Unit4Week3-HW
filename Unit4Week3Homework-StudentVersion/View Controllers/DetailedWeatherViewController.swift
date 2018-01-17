@@ -12,12 +12,12 @@ class DetailedWeatherViewController: UIViewController {
 
     var detailedView: DetailedWeatherView!
     
-    init(weather: Weather, forecast: Forecast, cityName: String) {
+    init(forecast: Forecast, cityName: String) {
         super.init(nibName: nil, bundle: nil)
         
         detailedView = DetailedWeatherView(frame: UIScreen.main.bounds)
         
-        detailedView.configureViews(forWeather: weather, forecast: forecast, andCityName: cityName)
+        detailedView.configureViews(forForecast: forecast, andCityName: cityName)
     }
     
     required init?(coder aDecoder: NSCoder) {

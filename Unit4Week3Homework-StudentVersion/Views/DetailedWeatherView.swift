@@ -67,7 +67,6 @@ class DetailedWeatherView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "placeholder")
         imageView.setContentHuggingPriority(UILayoutPriority(249), for: .vertical)
         
         return imageView
@@ -105,8 +104,7 @@ class DetailedWeatherView: UIView {
         commonInit()
     }
     
-    //to do later
-    func configureViews(forWeather weather: Weather, forecast: Forecast, andCityName cityName: String) {
+    func configureViews(forForecast forecast: Forecast, andCityName cityName: String) {
         
         let date = forecast.date.components(separatedBy: "T")[0]
         
@@ -134,7 +132,7 @@ class DetailedWeatherView: UIView {
         
         weatherLabelStackView.precipitationLabel.text = forecast.precipitationIN.description + " IN"
         
-        configureImage(forWeather: weather)
+        configureImage(forCityName: cityName)
     }
     
     private func commonInit() {
@@ -273,9 +271,31 @@ class DetailedWeatherView: UIView {
     }
     
     //to do
-    private func configureImage(forWeather weather: Weather) {
+    private func configureImage(forCityName cityName: String) {
         //to do - use pixabay api to get image!!
-        self.layoutIfNeeded()
+//        self.layoutIfNeeded()
+        
+        PixabayAPIClient.manager.getPixabayImageLink(cityName: cityName, completionHandler: { (pixabayURL) in
+            
+            do {
+                let data = try Data(contentsOf: pixabayURL)
+                
+                guard let image = UIImage(data: data) else {
+                    return
+                }
+                
+                self.cityImageView.image = image
+                
+                self.layoutIfNeeded()
+            } catch {
+                print(error)
+            }
+            
+        }, errorHandler: { (error) in
+            
+            print(error)
+            
+        })
     }
     
 }

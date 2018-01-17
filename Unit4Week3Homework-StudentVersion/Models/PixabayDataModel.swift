@@ -41,7 +41,7 @@ class PixabayDataModel {
         let filePath = dataFilePath(fileName: pathName)
         
         do {
-            let data = try encoder.encode(favoriteImages)
+            let data = try encoder.encode(favoriteImageURLs)
             try data.write(to: filePath)
         } catch let error {
             print(error)
@@ -50,7 +50,7 @@ class PixabayDataModel {
     }
     
     //load
-    private func loadFavorites() {
+    func loadFavorites() {
         let decoder = PropertyListDecoder()
         let filePath = dataFilePath(fileName: pathName)
         
@@ -66,10 +66,25 @@ class PixabayDataModel {
     }
     
     //add
-    func addFavorites(_ newURL: URL) {
+    func addFavorites(withImage image: UIImage, andURL newURL: URL) {
         let lastURLComponent = newURL.lastPathComponent
+        let filePath = dataFilePath(fileName: lastURLComponent)
+
         
-        self.favoriteImageURLs.insert(lastURLComponent, at: 0)
+        if !favoriteImageURLs.contains(lastURLComponent) {
+            self.favoriteImageURLs.insert(lastURLComponent, at: 0)
+            
+            guard let data = UIImagePNGRepresentation(image) else {
+                return
+            }
+            
+            do {
+                try data.write(to: filePath)
+            } catch {
+                print(error)
+            }
+            
+        }
     }
     
     //get
